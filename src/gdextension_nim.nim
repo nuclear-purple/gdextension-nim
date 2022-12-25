@@ -6,7 +6,7 @@ import gdextension_nim/godot
 import gdextension_nim/core/variant
 include gdextension_nim/includes
 
-export gdnative_interface
+export gdextension_interface
 export godot
 export variant
 

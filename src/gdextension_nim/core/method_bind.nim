@@ -1,4 +1,4 @@
-import ../wrapped_header/gdnative_interface
+import ../wrapped_header/gdextension_interface
 import variant
 
 
@@ -9,7 +9,7 @@ type MethodBind* = object
   hintFlags: uint32
   isStatic, isConst, hasReturn, isVararg: bool
   argNames: seq[cstring]
-  argTypes: ptr GDNativeVariantType
+  argTypes: ptr GDExtensionVariantType
   defaultArguments: seq[GodotVariant]
 
 

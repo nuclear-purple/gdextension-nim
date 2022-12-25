@@ -1,19 +1,19 @@
 
-import wrapped_header/gdnative_interface
+import wrapped_header/gdextension_interface
 import internal
 import core/variant as variant
 include includes
 
-export gdnative_interface
+export gdextension_interface
 export variant
 
 
 type
   ModuleInitializationLevel* = enum
-    milCore = GDNATIVE_INITIALIZATION_CORE,
-    milServers = GDNATIVE_INITIALIZATION_SERVERS,
-    milScene = GDNATIVE_INITIALIZATION_SCENE,
-    milEditor = GDNATIVE_INITIALIZATION_EDITOR,
+    milCore = GDEXTENSION_INITIALIZATION_CORE,
+    milServers = GDEXTENSION_INITIALIZATION_SERVERS,
+    milScene = GDEXTENSION_INITIALIZATION_SCENE,
+    milEditor = GDEXTENSION_INITIALIZATION_EDITOR,
   
   Callback* = proc(lvl: ModuleInitializationLevel): void {.nimcall.}
 
@@ -21,25 +21,25 @@ type
     initializeCallback, deinitializeCallback: Callback
   
   InitArguments* = tuple
-    pInterface: ptr GDNativeInterface
-    pLibrary: GDNativeExtensionClassLibraryPtr
-    rInitialization: ptr GDNativeInitialization
+    pInterface: ptr GDExtensionInterface
+    pLibrary: GDExtensionClassLibraryPtr
+    rInitialization: ptr GDExtensionInitialization
 
 
-type GDNativeIntializeDefect* = object of Defect
+type GDExtensionIntializeDefect* = object of Defect
 
 
 var g: InitCallbacks
 
 
 
-proc initializeLevel(userdata: pointer, pLevel: GDNativeInitializationLevel): void {.gdnExport.} =
+proc initializeLevel(userdata: pointer, pLevel: GDExtensionInitializationLevel): void {.gdnExport.} =
   let cb = g.initializeCallback
   if not cb.isNil():
     cb cast[ModuleInitializationLevel](pLevel)
 
 
-proc deinitializeLevel(userdata: pointer, pLevel: GDNativeInitializationLevel): void {.gdnExport.} =
+proc deinitializeLevel(userdata: pointer, pLevel: GDExtensionInitializationLevel): void {.gdnExport.} =
   let cb = g.deinitializeCallback
   if not cb.isNil():
     cb cast[ModuleInitializationLevel](pLevel)
@@ -57,5 +57,5 @@ proc init*(args: InitArguments, callbacks: InitCallbacks): void =
 
 
 proc setMinimumLibraryInitializationLevel*(pLevel: ModuleInitializationLevel): void =
-  minimumInitializationLevel = cast[GDNativeInitializationLevel](pLevel)
+  minimumInitializationLevel = cast[GDExtensionInitializationLevel](pLevel)
 

@@ -1,4 +1,4 @@
-import ../wrapped_header/gdnative_interface
+import ../wrapped_header/gdextension_interface
 from variant import Type
 from global_constants import PropertyHint, PropertyUsageFlags
 
@@ -11,8 +11,8 @@ type PropertyInfo* = object
   usage*: PropertyUsageFlags
 
 
-proc getGDNativePropertyInfo*(self: PropertyInfo): GDNativePropertyInfo =
-  result = GDNativePropertyInfo(
+proc getGDExtensionPropertyInfo*(self: PropertyInfo): GDExtensionPropertyInfo =
+  result = GDExtensionPropertyInfo(
     `type`: uint32 self.`type`,
     name: self.name,
     hint: uint32 self.hint,
@@ -37,7 +37,7 @@ proc newPropertyInfo*(pType: Type, pName: cstring, pHint: PropertyHint = PROPERT
     result.className = pClassName
 
 
-proc newPropertyInfo*(pType: GDNativeVariantType, pName: cstring, pHint: PropertyHint = PROPERTY_HINT_NONE, pHintString: cstring = "", pUsage: PropertyUsageFlags = PROPERTY_USAGE_DEFAULT, pClassName: cstring = ""): auto =
+proc newPropertyInfo*(pType: GDExtensionVariantType, pName: cstring, pHint: PropertyHint = PROPERTY_HINT_NONE, pHintString: cstring = "", pUsage: PropertyUsageFlags = PROPERTY_USAGE_DEFAULT, pClassName: cstring = ""): auto =
   newPropertyInfo(
     pType = Type(pType),
     pName = pName,

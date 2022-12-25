@@ -1,4 +1,4 @@
-import ../wrapped_header/gdnative_interface
+import ../wrapped_header/gdextension_interface
 
 type
   MethodDefinition* {.bycopy.} = object
@@ -9,6 +9,6 @@ type
     setter, getter: cstring
     
 
-var current_level: GDNativeInitializationLevel
+var current_level: GDExtensionInitializationLevel
 
 

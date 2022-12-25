@@ -1,2 +1,2 @@
-import ../wrapped_header/gdnative_interface
+import ../wrapped_header/gdextension_interface
 

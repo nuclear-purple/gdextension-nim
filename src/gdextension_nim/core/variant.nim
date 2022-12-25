@@ -1,6 +1,6 @@
 
 import ../internal
-import ../wrapped_header/gdnative_interface
+import ../wrapped_header/gdextension_interface
 import method_ptrcall
 
 import ../variant/[vector2]
@@ -95,17 +95,17 @@ type
   GodotVariant* = ref GodotVariantObj
 
 var
-  fromTypeConstructor: array[VARIANT_MAX,GDNativeVariantFromTypeConstructorFunc]
-  toTypeConstructor: array[VARIANT_MAX,GDNativeTypeFromVariantConstructorFunc]
+  fromTypeConstructor: array[VARIANT_MAX,GDExtensionVariantFromTypeConstructorFunc]
+  toTypeConstructor: array[VARIANT_MAX,GDExtensionTypeFromVariantConstructorFunc]
 
 
 proc initBindings*(): void =
   for i in BOOL..<VARIANT_MAX:
     # echo i
-    fromTypeConstructor[i] = gdnInterface.get_variant_from_type_constructor(cast[GDNativeVariantType](i))
+    fromTypeConstructor[i] = gdnInterface.get_variant_from_type_constructor(cast[GDExtensionVariantType](i))
     # echo i, " is finished"
     # echo "binding ", i
-    toTypeConstructor[i] = gdnInterface.get_variant_to_type_constructor(cast[GDNativeVariantType](i))
+    toTypeConstructor[i] = gdnInterface.get_variant_to_type_constructor(cast[GDExtensionVariantType](i))
 
 
 proc nativePtr(v: GodotVariant): pointer = unsafeAddr v[]
@@ -119,7 +119,7 @@ proc Variant*(): GodotVariant =
   result = newGodotVariant()
   gdnInterface.variant_new_nil(result.nativePtr());
 
-proc Variant*(nativePtr: GDNativeVariantPtr): GodotVariant =
+proc Variant*(nativePtr: GDExtensionVariantPtr): GodotVariant =
   result = newGodotVariant()
   gdnInterface.variant_new_copy(result.nativePtr(), nativePtr)
 
@@ -136,7 +136,7 @@ proc Variant*(other: sink GodotVariant): GodotVariant =
 
 converter Variant*(v: bool): GodotVariant =
   result = newGodotVariant()
-  var b: GDNativeBool
+  var b: GDExtensionBool
   encode(v, cast[ptr bool](addr b))
   fromTypeConstructor[BOOL](result.nativePtr(), addr b)
 

@@ -1,8 +1,8 @@
-import wrapped_header/gdnative_interface
+import wrapped_header/gdextension_interface
 
 var
-  minimumInitializationLevel*: GDNativeInitializationLevel
-  gdnInterface*: ptr GDNativeInterface
-  library*: GDNativeExtensionClassLibraryPtr
-  initialization*: ptr GDNativeInitialization
+  minimumInitializationLevel*: GDExtensionInitializationLevel
+  gdnInterface*: ptr GDExtensionInterface
+  library*: GDExtensionClassLibraryPtr
+  initialization*: ptr GDExtensionInitialization
   token*: pointer = nil

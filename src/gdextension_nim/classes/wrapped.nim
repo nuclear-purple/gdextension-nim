@@ -1,17 +1,17 @@
-import ../wrapped_header/gdnative_interface
+import ../wrapped_header/gdextension_interface
 import ../internal as internal
 import ../core/variant
 import ../core/property_info
 
 type Wrapped* = ref object of RootObj
-  plist: ptr GDNativePropertyInfo
+  plist: ptr GDExtensionPropertyInfo
   plistSize: uint32
   owner*: pointer
 
 method getExtensionClass(self: Wrapped): string {.base.} = ""
 
 
-method getBindingCallbacks(self: Wrapped): ptr GDNativeInstanceBindingCallbacks {.base.} = nil
+method getBindingCallbacks(self: Wrapped): ptr GDExtensionInstanceBindingCallbacks {.base.} = nil
 
 
 method notification(self: Wrapped, pWhat: int): void {.base.} = discard
@@ -36,25 +36,25 @@ method notification(self: Wrapped, pWhat: int): void {.base.} = discard
 method notificationBind(self: Wrapped, pInstance: GDExtensionClassInstancePtr, pWhat: int32): void {.base.} = discard
 
 
-proc setBind*(pInstance: GDExtensionClassInstancePtr, pName: GDNativeStringNamePtr, pValue: GDNativeVariantPtr): GDNativeBool = uint8 false
+proc setBind*(pInstance: GDExtensionClassInstancePtr, pName: GDExtensionStringNamePtr, pValue: GDExtensionVariantPtr): GDExtensionBool = uint8 false
 
 
-proc getBind*(pInstance: GDExtensionClassInstancePtr, pName: GDNativeStringNamePtr, pValue: GDNativeVariantPtr): GDNativeBool = uint8 false
+proc getBind*(pInstance: GDExtensionClassInstancePtr, pName: GDExtensionStringNamePtr, pValue: GDExtensionVariantPtr): GDExtensionBool = uint8 false
 
 
-proc getPropertyListBind*(pInstance: GDExtensionClassInstancePtr, rCount: uint32): ptr GDNativePropertyInfo = nil
+proc getPropertyListBind*(pInstance: GDExtensionClassInstancePtr, rCount: uint32): ptr GDExtensionPropertyInfo = nil
 
 
-proc freePropertyListBind*(pInstance: GDExtensionClassInstancePtr, pList: ptr GDNativePropertyInfo): void = discard
+proc freePropertyListBind*(pInstance: GDExtensionClassInstancePtr, pList: ptr GDExtensionPropertyInfo): void = discard
 
 
-proc propertyCanRevertBind*(pInstance: GDExtensionClassInstancePtr, pList: ptr GDNativePropertyInfo): GDNativeBool = uint8 false
+proc propertyCanRevertBind*(pInstance: GDExtensionClassInstancePtr, pList: ptr GDExtensionPropertyInfo): GDExtensionBool = uint8 false
 
 
-proc propertyGetRevertBind*(pInstance: GDExtensionClassInstancePtr, pName: GDNativeStringNamePtr, rRet: GDNativeVariantPtr): GDNativeBool = uint8 false
+proc propertyGetRevertBind*(pInstance: GDExtensionClassInstancePtr, pName: GDExtensionStringNamePtr, rRet: GDExtensionVariantPtr): GDExtensionBool = uint8 false
 
 
-# proc toStringBind(pInstance: GDExtensionClassInstancePtr, rOut: GDNativeStringPtr): void
+# proc toStringBind(pInstance: GDExtensionClassInstancePtr, rOut: GDExtensionStringPtr): void
 
 
 method postInitialize*(self: Wrapped): void {.base.} =

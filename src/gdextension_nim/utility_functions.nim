@@ -10,7 +10,7 @@ proc printInternal(args: varargs[ptr GodotVariantObj], argCount: int) =
   var
     ret = Variant()
     pRet = addr ret[]
-    pArg = cast[GDNativeTypePtr](args[0])
+    pArg = cast[GDExtensionTypePtr](args[0])
   fun(
     pRet,
     addr pArg,
