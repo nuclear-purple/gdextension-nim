@@ -18,7 +18,7 @@ proc deInitializeModule(lvl: ModuleInitializationLevel): void =
   # GD.print(Variant(false))
 
 
-proc exampleLibraryInit(pInterface: ptr GDNativeInterface, pLibrary: GDNativeExtensionClassLibraryPtr, rInitialization: ptr GDNativeInitialization): GDNativeBool {.gdnExport.} =
+proc exampleLibraryInit(pInterface: ptr GDExtensionInterface, pLibrary: GDExtensionClassLibraryPtr, rInitialization: ptr GDExtensionInitialization): GDExtensionBool {.gdnExport.} =
   godot.init(
     args = (pInterface, pLibrary, rInitialization),
     callbacks = (initializeModule, deInitializeModule)

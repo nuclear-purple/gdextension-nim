@@ -12,12 +12,29 @@ As of the time of this document's writing, Godot Engine is in beta. As such, if 
         godot --dump-extension-api extension_api.json
 
 3. Copy the file `core/extension/gdextension_interface.h` from [Godot's source code](https://github.com/godotengine/godot) at the specific version you are using (e.g. 4.0 beta 10) to `godot` .
-4. Install c2nim, if it is not already installed:
+
+4. Insert the following code at the top of the `gdextension_interface.h` file:
+
+        #ifdef C2NIM
+        #	cdecl
+        #	mangle ssize_t int
+        #	mangle uint64_t uint64
+        #	mangle uint32_t uint32
+        #	mangle uint16_t uint16
+        #	mangle uint8_t uint8
+        #	mangle int64_t int64
+        #	mangle int32_t int32
+        #	mangle int16_t int16
+        #	mangle int8_t int8
+        #	mangle wchar_t uint32
+        #endif
+
+5. Install c2nim, if it is not already installed:
 
         nimble install c2nim
 
-5. Navigate to the `godot` folder and run the following command to generate the .nim binding file:
+6. Navigate to the `godot` folder and run the following command to generate the .nim binding file:
 
         c2nim gdextension_interface.h
 
-6. This should generate the file `gdextension_interface.nim` . Copy it to `src/gdextension_nim/wrapped_header` .
+7. This should generate the file `gdextension_interface.nim` . Copy it to `src/gdextension_nim/wrapped_header` .

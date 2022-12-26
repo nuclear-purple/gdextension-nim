@@ -28,6 +28,20 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
+#ifdef C2NIM
+#	cdecl
+#	mangle ssize_t int
+#	mangle uint64_t uint64
+#	mangle uint32_t uint32
+#	mangle uint16_t uint16
+#	mangle uint8_t uint8
+#	mangle int64_t int64
+#	mangle int32_t int32
+#	mangle int16_t int16
+#	mangle int8_t int8
+#	mangle wchar_t uint32
+#endif
+
 #ifndef GDEXTENSION_INTERFACE_H
 #define GDEXTENSION_INTERFACE_H
 
